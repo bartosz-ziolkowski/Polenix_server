@@ -1,15 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const { Post } = require('../models');
+const { Meal } = require('../models');
 
 router.get("/", async (req, res) => {
-    const allPosts = await Post.findAll();
-    res.json(allPosts);
+    const allMeals = await Meal.findAll();
+    res.json(allMeals);
 });
 
 router.post("/", async (req, res) => {
     const post = req.body;
-    await Post.create(post);
+    await Meal.create(post);
     res.json(post);
 });
 

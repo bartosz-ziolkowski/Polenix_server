@@ -5,8 +5,8 @@ const cors = require('cors');
 app.use(cors());
 const db = require("./models");
 
-const postRouter = require('./routes/Post');
-app.use("/posts", postRouter);
+const mealRouter = require('./routes/Meal');
+app.use("/meals", mealRouter);
 
 db.sequelize.sync().then(() => {
     app.listen(3001, () => {
