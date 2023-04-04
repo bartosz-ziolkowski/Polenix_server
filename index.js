@@ -1,36 +1,18 @@
-const typeDefs = require('./schema')
-const resolvers = require('./resolvers')
-const dataSources = require('./datasource')
+require("dotenv").config();
 
-const express = require('express');
-const app = express();
-app.use(express.json());
-const cors = require('cors');
-app.use(cors());
-const db = require("./models");
-/*const graphql, {GraphQLObjectType, GraphQLSchema, GraphQLString} = require('graphql');*/
-const { graphqlHTTP } = require('express-graphql');
+const server = require("./api/server");
 
-const mealRouter = require('./routes/Meal');
-const { ApolloServer } = require('apollo-server-express');
-app.use("/meals", mealRouter);
+const port = process.env.PORT || 3001;
 
-let apolloServer = null;
-async function startServer() {
-  apolloServer = new ApolloServer({
-    typeDefs,
-    resolvers,
-    dataSources
-  });
-  await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
-}
-startServer();
-
-db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running on port 3001")
-        console.log(`gql path is ${apolloServer.graphqlPath}`)
-    });
+process.on("uncaughtException", (err) => {
+  console.error(`${new Date().toUTCString()} uncaughtException:`, err);
+  process.exit(0);
 });
 
+process.on("unhandledRejection", (err) => {
+  console.error(`${new Date().toUTCString()} unhandledRejection:`, err);
+});
+
+server.listen({ port }, () =>
+  console.log(`🚀 Server ready at http://localhost:${port}/api`)
+);
