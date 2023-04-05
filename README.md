@@ -66,7 +66,7 @@ To see how the app works, please watch the video available [_here_](https://www.
 |    ![Top of Home Page](https://i.postimg.cc/qRPSHrvK/home-Top-Screen.png)    |
 | :--------------------------------------------------------------------------: |
 |                              _Top of Home Page_                              |
-| ![Bottom of Home Page](https://i.postimg.cc/gkq5QfFw/home-Bottom-Screen.png) |
+| ![Bottom of Home Page](https://i.postimg.cc/d0yyk03x/home-Bottom-Screen.jpg) |
 |                            _Bottom of Home Page_                             |
 |       ![About us Page](https://i.postimg.cc/Ls0GvLdN/about-Screen.png)       |
 |                               _About us Page_                                |
