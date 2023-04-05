@@ -1,16 +1,18 @@
-const express = require('express');
-const app = express();
-app.use(express.json());
-const cors = require('cors');
-app.use(cors());
-const db = require("./models");
+require("dotenv").config();
 
-const mealRouter = require('./routes/Meal');
-app.use("/meals", mealRouter);
+const server = require("./api/server");
 
-db.sequelize.sync().then(() => {
-    app.listen(3001, () => {
-        console.log("Server running on port 3001")
-    });
+const port = process.env.PORT || 3001;
+
+process.on("uncaughtException", (err) => {
+  console.error(`${new Date().toUTCString()} uncaughtException:`, err);
+  process.exit(0);
 });
 
+process.on("unhandledRejection", (err) => {
+  console.error(`${new Date().toUTCString()} unhandledRejection:`, err);
+});
+
+server.listen({ port }, () =>
+  console.log(`🚀 Server ready at http://localhost:${port}/api`)
+);
