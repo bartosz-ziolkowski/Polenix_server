@@ -63,15 +63,15 @@ To see how the app works, please watch the video available [_here_](https://www.
 
 ## Screenshots
 
-|    ![Top of Home Page](https://i.postimg.cc/qRPSHrvK/home-Top-Screen.png)    |
-| :--------------------------------------------------------------------------: |
-|                              _Top of Home Page_                              |
-| ![Bottom of Home Page](https://i.postimg.cc/gkq5QfFw/home-Bottom-Screen.png) |
-|                            _Bottom of Home Page_                             |
-|       ![About us Page](https://i.postimg.cc/Ls0GvLdN/about-Screen.png)       |
-|                               _About us Page_                                |
-|    ![Restaurant Menu Page](https://i.postimg.cc/VLFH3Gk6/menu-Screen.png)    |
-|                            _Restaurant Menu Page_                            |
+|      ![Top of Home Page](./README_img/homeTopScreen.png)       |
+| :------------------------------------------------------------: |
+|                       _Top of Home Page_                       |
+|      ![Bottom of Home Page](./README_img/homeBottom.png)       |
+|                     _Bottom of Home Page_                      |
+|         ![About us Page](./README_img/aboutScreen.png)         |
+|                        _About us Page_                         |
+| ![Restaurant Menu Page](./README_img/restaurantMenuScreen.png) |
+|                     _Restaurant Menu Page_                     |
 
 ## Setup
 
