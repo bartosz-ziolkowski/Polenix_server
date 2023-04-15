@@ -101,6 +101,7 @@ npm install
    - REACT_APP_SERVICE_ID
    - REACT_APP_TEMPLATE_ID
    - REACT_APP_USER_ID
+   - REACT_APP_APOLLO_URL
 
 7. Navigate to "Polenix_server" folder and clone the backend repository to the "Polenix_server" folder:
 
