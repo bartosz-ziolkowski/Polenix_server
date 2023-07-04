@@ -29,6 +29,11 @@ module.exports = gql`
     login(email: String!, password: String!): LoginResponse
   }
 
+  extend type Query {
+    getUserOrders(userId: Int!): [Order!]
+    getUser(userId: Int!): User
+  }
+
   input RegisterInput {
     email: String!
     firstName: String!

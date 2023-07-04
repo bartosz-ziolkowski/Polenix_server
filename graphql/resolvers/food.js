@@ -11,11 +11,13 @@ module.exports = {
       if (!user) {
         throw new AuthenticationError("You must login to create a food");
       }
+      
       const category = await Category.findByPk(categoryId);
 
       if (category) {
         return category.createFood({ name, quantity, price });
       }
+      
       throw new ApolloError("Unable to create a food");
     },
   },

@@ -1,4 +1,4 @@
-const Category = require("../../database/models").Category;
+const { Category } = require("../../database/models");
 const { AuthenticationError } = require("apollo-server-express");
 
 module.exports = {

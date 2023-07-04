@@ -9,17 +9,18 @@ module.exports = gql`
     updatedAt: String
   }
 
+  extend type Mutation {
+    createOrderItem(foodId: Int!): CreateOrderItemResponse
+    updateOrderItemQuantity(
+      orderItemId: Int!
+      toIncreaseQuantity: Boolean!
+    ): OrderItem
+    removeOrderItem(orderItemId: Int!): OrderItem
+  }
+
   extend type Query {
     getAllOrderItems: [OrderItem!]
     getSingleOrderItem(orderItemId: Int!): OrderItem
-  }
-
-  extend type Mutation {
-    createOrderItem(
-      orderId: Int!
-      foodId: Int!
-      quantity: Int!
-    ): CreateOrderItemResponse
   }
 
   type CreateOrderItemResponse {

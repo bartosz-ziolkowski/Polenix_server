@@ -1,6 +1,6 @@
+require("dotenv").config();
 const { User } = require("../../database/models");
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
 const { AuthenticationError } = require("apollo-server-express");
 
 const verifyToken = async (token) => {

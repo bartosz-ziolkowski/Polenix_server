@@ -13,18 +13,21 @@ module.exports = gql`
   }
 
   enum StatusType {
+    DRAFT
     RECEIVED
     IN_PROGRESS
     COMPLETED
   }
 
-  extend type Query {
-    getAllOrders: [OrderItem!]
-    getSingleOrder(orderId: Int!): Order
+  extend type Mutation {
+    createOrder(delivery: Boolean!): CreateOrderResponse
+    updateOrder(orderId: Int!, delivery: Boolean, status: StatusType): Order
+    removeOrder(orderId: Int!): Order
   }
 
-  extend type Mutation {
-    createOrder(delivery: Boolean!): CreateOrderItemResponse
+  extend type Query {
+    getAllOrders: [Order!]
+    getSingleOrder(orderId: Int!): Order
   }
 
   type CreateOrderResponse {

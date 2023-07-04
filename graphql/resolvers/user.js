@@ -1,13 +1,19 @@
+require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const { AuthenticationError } = require("apollo-server-express");
-require("dotenv").config();
-const { User } = require("../../database/models");
+const { User, Order, OrderItem } = require("../../database/models");
 
 module.exports = {
   Mutation: {
     async login(root, { email, password }, context) {
-      const user = await User.findOne({ where: { email } });
+      const user = await User.findOne({
+        where: { email },
+        include: {
+          model: Order,
+          as: "orders",
+        },
+      });
       if (!user) {
         throw new AuthenticationError("No user with that email");
       }
@@ -50,6 +56,24 @@ module.exports = {
         city,
         password: await bcrypt.hash(password, 10),
       });
+    },
+  },
+
+  Query: {
+    async getUserOrders(root, args, { user }) {
+      if (!user) {
+        throw new AuthenticationError("You must log in to get your orders");
+      }
+      return Order.findAll({
+        where: { userId: user.id },
+        include: {
+          model: OrderItem,
+          as: "orderItems",
+        },
+      });
+    },
+    async getUser(root, { userId }, context) {
+      return User.findByPk(userId);
     },
   },
 };

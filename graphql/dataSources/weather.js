@@ -1,5 +1,5 @@
-const { RESTDataSource } = require("apollo-datasource-rest");
 require("dotenv").config();
+const { RESTDataSource } = require("apollo-datasource-rest");
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;
 const API_URL = "https://api.openweathermap.org/data/2.5/weather";
