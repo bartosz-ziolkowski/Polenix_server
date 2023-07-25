@@ -17,6 +17,7 @@ const apolloServer = new ApolloServer({
   }),
   resolvers,
   context,
+  subscriptions: { path: "/api" },
   introspection: true,
   playground: {
     settings: {
