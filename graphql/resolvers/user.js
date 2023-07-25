@@ -1,7 +1,8 @@
 require("dotenv").config();
+const { Op } = require("sequelize");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
-const { AuthenticationError } = require("apollo-server-express");
+const { AuthenticationError, ApolloError } = require("apollo-server-express");
 const { User, Order, OrderItem } = require("../../database/models");
 
 module.exports = {
@@ -14,6 +15,7 @@ module.exports = {
           as: "orders",
         },
       });
+
       if (!user) {
         throw new AuthenticationError("No user with that email");
       }
@@ -21,6 +23,7 @@ module.exports = {
       if (!bcrypt.compareSync(password, user.password)) {
         throw new AuthenticationError("Incorrect password");
       }
+
       const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET);
       return { ...user.toJSON(), token };
     },
@@ -45,17 +48,75 @@ module.exports = {
       if (await User.findOne({ where: { phoneNumber } })) {
         throw new AuthenticationError("Phone number already taken");
       }
-      return User.create({
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
-        dateOfBirth,
-        address,
-        zipCode,
-        city,
-        password: await bcrypt.hash(password, 10),
+      
+      try {
+        return await User.create({
+          email,
+          firstName,
+          lastName,
+          phoneNumber,
+          dateOfBirth,
+          address,
+          zipCode,
+          city,
+          password: await bcrypt.hash(password, 10),
+        });
+      } catch (error) {
+        if (error.name === "SequelizeValidationError") {
+          throw new ApolloError("Validation error", {
+            validationErrors: error.errors.map((err) => ({
+              path: err.path,
+              message: err.message,
+            })),
+          });
+        } else {
+          throw new ApolloError("Unable to create a user");
+        }
+      }
+    },
+
+    async updateUserData(root, args, { user }) {
+      if (!user) {
+        throw new AuthenticationError("You must login to update your data");
+      }
+
+      const existingUser = await User.findOne({
+        where: {
+          phoneNumber: args.input.phoneNumber,
+          id: { [Op.ne]: user.id },
+        },
       });
+
+      if (existingUser) {
+        throw new AuthenticationError("Phone number already taken");
+      }
+
+      try {
+        await User.update(
+          {
+            ...args.input,
+          },
+          { where: { id: user.id } }
+        );
+      } catch (error) {
+        if (error.name === "SequelizeValidationError") {
+          throw new ApolloError("Validation error", {
+            validationErrors: error.errors.map((err) => ({
+              path: err.path,
+              message: err.message,
+            })),
+          });
+        } else {
+          throw new ApolloError("Unable to update your data");
+        }
+      }
+
+      const updatedUser = await User.findOne({ where: { id: user.id } });
+
+      return {
+        id: updatedUser.id,
+        email: updatedUser.email,
+      };
     },
   },
 
@@ -64,16 +125,22 @@ module.exports = {
       if (!user) {
         throw new AuthenticationError("You must log in to get your orders");
       }
-      return Order.findAll({
-        where: { userId: user.id },
-        include: {
-          model: OrderItem,
-          as: "orderItems",
-        },
-      });
+      try {
+        return await Order.findAll({
+          where: { userId: user.id },
+          include: {
+            model: OrderItem,
+            as: "orderItems",
+          },
+          order: [["createdAt", "DESC"]],
+        });
+      } catch (error) {
+        throw new ApolloError("Unable to get your orders");
+      }
     },
+
     async getUser(root, { userId }, context) {
-      return User.findByPk(userId);
+      return await User.findByPk(userId);
     },
   },
 };

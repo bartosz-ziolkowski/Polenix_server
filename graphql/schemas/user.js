@@ -27,11 +27,22 @@ module.exports = gql`
   extend type Mutation {
     register(input: RegisterInput!): RegisterResponse
     login(email: String!, password: String!): LoginResponse
+    updateUserData(input: UpdateUserInput!): RegisterResponse
   }
 
   extend type Query {
     getUserOrders(userId: Int!): [Order!]
     getUser(userId: Int!): User
+  }
+
+  input UpdateUserInput {
+    firstName: String!
+    lastName: String!
+    phoneNumber: String!
+    dateOfBirth: String!
+    address: String!
+    zipCode: String!
+    city: String!
   }
 
   input RegisterInput {

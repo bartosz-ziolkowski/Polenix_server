@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       orderId: {
         type: DataTypes.INTEGER,
-        eferences: {
+        references: {
           model: {
             tableName: "Orders",
           },
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       foodId: {
         type: DataTypes.INTEGER,
-        eferences: {
+        references: {
           model: {
             tableName: "Food",
           },
@@ -38,6 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          min: 0,
+        },
       },
       createdAt: {
         type: DataTypes.DATE,

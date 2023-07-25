@@ -9,15 +9,18 @@ module.exports = (sequelize, DataTypes) => {
   Category.init(
     {
       id: {
+        type: DataTypes.INTEGER,
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: DataTypes.INTEGER,
       },
       name: {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          len: [3, 20],
+        },
       },
       createdAt: {
         type: DataTypes.DATE,

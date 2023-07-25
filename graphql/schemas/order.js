@@ -22,7 +22,7 @@ module.exports = gql`
   extend type Mutation {
     createOrder(delivery: Boolean!): CreateOrderResponse
     updateOrder(orderId: Int!, delivery: Boolean, status: StatusType): Order
-    removeOrder(orderId: Int!): Order
+    removeOrder(orderId: Int!): RemoveOrderResponse
   }
 
   extend type Query {
@@ -32,5 +32,10 @@ module.exports = gql`
 
   type CreateOrderResponse {
     id: Int!
+  }
+
+  type RemoveOrderResponse {
+    deletedFoodIds: [Int!]!
+    orderId: Int!
   }
 `;

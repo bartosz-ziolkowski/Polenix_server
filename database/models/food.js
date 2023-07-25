@@ -25,6 +25,9 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.STRING,
         allowNull: false,
         unique: true,
+        validate: {
+          len: [2, 50],
+        },
       },
       categoryId: {
         type: DataTypes.INTEGER,
@@ -39,10 +42,16 @@ module.exports = (sequelize, DataTypes) => {
       quantity: {
         type: DataTypes.INTEGER,
         allowNull: false,
+        validate: {
+          min: 0,
+        },
       },
       price: {
         type: DataTypes.DOUBLE,
         allowNull: false,
+        validate: {
+          min: 10,
+        },
       },
       createdAt: {
         type: DataTypes.DATE,

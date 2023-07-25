@@ -14,6 +14,7 @@ module.exports = gql`
   extend type Query {
     getAllFood: [Food!]
     getSingleFood(foodId: Int!): Food
+    getFoodByCategory(categoryId: Int!): [Food!]
   }
 
   extend type Mutation {
