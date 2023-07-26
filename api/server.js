@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://polenix-4ee0a.web.app",
     credentials: true,
   })
 );
