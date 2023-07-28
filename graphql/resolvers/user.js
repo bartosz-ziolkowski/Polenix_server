@@ -20,7 +20,9 @@ module.exports = {
         throw new AuthenticationError("No user with that email");
       }
 
-      if (!bcrypt.compare(password, user.password)) {
+      const isPasswordValid = await bcrypt.compare(password, user.password);
+
+      if (!isPasswordValid) {
         throw new AuthenticationError("Incorrect password");
       }
 
