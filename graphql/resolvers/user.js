@@ -44,6 +44,7 @@ module.exports = {
       try {
         return await User.create({
           ...args.input,
+          password: await bcrypt.hash(args.input.password, 10),
         });
       } catch (error) {
         if (error.name === "SequelizeValidationError") {
