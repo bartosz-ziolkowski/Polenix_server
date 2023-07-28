@@ -20,7 +20,7 @@ module.exports = {
         throw new AuthenticationError("No user with that email");
       }
 
-      if (!bcrypt.compareSync(password, user.password)) {
+      if (!bcrypt.compare(password, user.password)) {
         throw new AuthenticationError("Incorrect password");
       }
 
@@ -29,17 +29,7 @@ module.exports = {
     },
 
     async register(root, args, context) {
-      const {
-        email,
-        firstName,
-        lastName,
-        phoneNumber,
-        dateOfBirth,
-        address,
-        zipCode,
-        city,
-        password,
-      } = args.input;
+      const { email, phoneNumber } = args.input;
 
       if (await User.findOne({ where: { email } })) {
         throw new AuthenticationError("Email already exists");
@@ -48,18 +38,10 @@ module.exports = {
       if (await User.findOne({ where: { phoneNumber } })) {
         throw new AuthenticationError("Phone number already taken");
       }
-      
+
       try {
         return await User.create({
-          email,
-          firstName,
-          lastName,
-          phoneNumber,
-          dateOfBirth,
-          address,
-          zipCode,
-          city,
-          password: await bcrypt.hash(password, 10),
+          ...args.input,
         });
       } catch (error) {
         if (error.name === "SequelizeValidationError") {
