@@ -1,4 +1,4 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.local" });
 const { User } = require("../../database/models");
 const jwt = require("jsonwebtoken");
 const { AuthenticationError } = require("apollo-server-express");

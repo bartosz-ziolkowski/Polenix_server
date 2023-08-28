@@ -1,4 +1,5 @@
-require("dotenv").config();
+require("dotenv").config({ path: ".env.local" });
+
 const { RESTDataSource } = require("apollo-datasource-rest");
 
 const API_KEY = process.env.REACT_APP_WEATHER_API_KEY;

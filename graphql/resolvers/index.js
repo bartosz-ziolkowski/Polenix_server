@@ -4,6 +4,7 @@ const orderResolvers = require("./order");
 const orderItemResolvers = require("./orderItem");
 const userResolvers = require("./user");
 const weatherResolvers = require("./weather");
+const easyCargoResolvers = require("./easycargo");
 
 module.exports = [
   userResolvers,
@@ -12,4 +13,5 @@ module.exports = [
   orderResolvers,
   categoryResolvers,
   weatherResolvers,
+  easyCargoResolvers,
 ];

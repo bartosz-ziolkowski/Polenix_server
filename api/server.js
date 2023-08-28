@@ -6,11 +6,12 @@ const typeDefs = require("../graphql/schemas");
 const context = require("../graphql/context");
 const resolvers = require("../graphql/resolvers");
 const WeatherAPI = require("../graphql/dataSources/weather");
+const EasyCargoAPI = require("../graphql/dataSources/easycargo");
 const app = express();
 
 app.use(
   cors({
-    origin: "https://polenix-4ee0a.web.app",
+    origin: "http://localhost:3000",
     credentials: true,
   })
 );
@@ -19,6 +20,7 @@ const apolloServer = new ApolloServer({
   typeDefs,
   dataSources: () => ({
     weatherAPI: new WeatherAPI(),
+    easyCargoAPI: new EasyCargoAPI(),
   }),
   resolvers,
   context,

@@ -5,6 +5,7 @@ const orderType = require("./order");
 const OrderItemType = require("./orderitem");
 const userType = require("./user");
 const weatherType = require("./weather");
+const easyCargoType = require("./easycargo");
 
 const rootType = gql`
   type Query {
@@ -23,4 +24,5 @@ module.exports = [
   OrderItemType,
   userType,
   weatherType,
+  easyCargoType,
 ];

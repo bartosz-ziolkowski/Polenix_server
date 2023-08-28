@@ -1,5 +1,3 @@
-require("dotenv").config();
-
 module.exports = {
   development: {
     use_env_variable: "CLEARDB_DATABASE_URL",
